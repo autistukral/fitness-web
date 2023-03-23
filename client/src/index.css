@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans;
+    @apply bg-[#121212];
+    @apply scroll-smooth;
+  }
+
+  li {
+    @apply px-4;
+    @apply cursor-pointer;
+  }
+}
