@@ -8,9 +8,48 @@ import trener2 from '../assets/img/treneri/trener2.jpg'
 import trener3 from '../assets/img/treneri/trener3.jpg'
 import trener4 from '../assets/img/treneri/trener4.jpg'
 import { useRef, useEffect, useState } from 'react'
+import axios from "../api/axios";
 
-function Rezervace() {
+const REZERVACE_URL = '/rezervace';
+
+
+
+const Rezervace = () => {
+    const userRef = useRef();
+    const [date, setDate] = useState('');
+    const [dateFocus, setDateFocus] = useState(false);
+    const [activity, setActivity] = useState('');
+    const [activityFocus, setActivityFocus] = useState(false);
+    const [trainer, setTrainer] = useState('');
+    const [trainerFocus, setTrainerFocus] = useState(false);
+    const [price, setPrice] = useState('');
+    const [priceFocus, setPriceFocus] = useState(false);
+    const errRef = useRef();
+    const [errMsg, setErrMsg] = useState('');
     const myRef = useRef();
+    useEffect(() => {
+        userRef.current.focus();
+    }, [])
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(REZERVACE_URL,
+                JSON.stringify({ date, activity, trainer, price }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                });
+            console.log(response.data);
+            console.log(response.accessToken);
+            console.log(JSON.stringify(response));
+        } catch (err) {
+            if (!err?.response) {
+                setErrMsg('No server response');
+            } else {
+                setErrMsg('Rezervace Failed')
+            }
+        }
+    }
     const [myElementIsVisible, setMyElementIsVisible] = useState();
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -25,24 +64,43 @@ function Rezervace() {
             <div className='max-w-[1000px] min-h-fit mx-auto mb-6 pt-[14vh] px-[2vw] flex flex-col justify-center' id='Rezervace'>
                 <div className='flex flex-col h-screen justify-center translate-y-[-20%]'>
                     <p className='text-2xl text-[#f7fafc] font-bold mx-auto mb-2'>Rezervace</p>
-                    <form action="" className='flex flex-col mx-auto mt-[20px] w-[500px]'>
+                    <form onSubmit={handleSubmit} className='flex flex-col mx-auto mt-[20px] w-[500px]'>
                         <div className='flex flex-row gap-10 justify-between'>
                             <div className='flex flex-col gap-[20px]'>
                                 <div className='flex flex-row'>
                                     <label htmlFor="date" className='mr-[10px] font-bold text-[#f7fafc] my-auto'>Datum</label>
-                                    <input type="date" name="date" id="date"
+                                    <input
+                                        type="date"
+                                        name="date"
+                                        id="date"
+                                        ref={userRef}
+                                        onChange={(e) => setDate(e.target.value)}
+                                        required
+                                        onFocus={() => setActivityFocus(true)}
+                                        onBlur={() => setActivityFocus(false)}
                                         className='bg-[#a88bbb] w-[160px] h-[40px] rounded-[8px] p-[4px] text-[#fff] mx-auto outline-none' />
                                 </div>
                                 <div className='flex flex-row ml-auto'>
                                     <label htmlFor="price" className='mr-[10px] font-bold text-[#f7fafc] my-auto'>Cena</label>
-                                    <input type="text" name="price" id="price" disabled
+                                    <input
+                                        type="number"
+                                        name="price"
+                                        id="price"
+                                        disabled
+                                        onFocus={() => setPriceFocus(true)}
+                                        onBlur={() => setPriceFocus(false)}
                                         className='bg-[#a88bbb] w-[160px] h-[40px] rounded-[8px] p-[4px] text-[#fff] mx-auto outline-none' />
                                 </div>
                             </div>
                             <div className='flex flex-col gap-[20px]'>
                                 <div className='flex flex-row'>
                                     <label htmlFor="activity" className='mr-[10px] font-bold text-[#f7fafc] my-auto'>Aktivita</label>
-                                    <select name="activity" id="activity"
+                                    <select
+                                        name="activity"
+                                        id="activity"
+                                        onChange={(e) => setActivity(e.target.value)}
+                                        onFocus={() => setActivityFocus(true)}
+                                        onBlur={() => setActivityFocus(false)}
                                         className='bg-[#a88bbb] w-[160px] h-[40px] rounded-[8px] p-[4px] text-[#fff] mx-auto outline-none'>
                                         <option value="indoorcycling">Indoor cycling</option>
                                         <option value="pilates">Pilates</option>
@@ -52,7 +110,12 @@ function Rezervace() {
                                 </div>
                                 <div className='flex flex-row ml-auto'>
                                     <label htmlFor="trainer" className='mr-[10px] font-bold text-[#f7fafc] my-auto'>Trenér</label>
-                                    <select name="trainer" id="trainer"
+                                    <select
+                                        name="trainer"
+                                        id="trainer"
+                                        onChange={(e) => setTrainer(e.target.value)}
+                                        onFocus={() => setTrainerFocus(true)}
+                                        onBlur={() => setTrainerFocus(false)}
                                         className='bg-[#a88bbb] w-[160px] h-[40px] rounded-[8px] p-[4px] text-[#fff] mx-auto outline-none'>
                                         <option value="franta-placeny">Franta Placený</option>
                                         <option value="mirek-hmotny">Mirek Hmotný</option>
