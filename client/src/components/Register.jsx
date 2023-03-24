@@ -86,10 +86,10 @@ const Register = () => {
         <>
             {success ? (
                 <div className='w-full min-h-screen'>
-                    <section className='w-[100%] max-w-[420px] min-h-[400px] flex flex-col justify-center px-[32px] py-[24px] bg-[#d7c2c4] rounded-[24px]'>
-                        <h1>Registrováno!</h1>
-                        <p>
-                            <a href="#">Přihlásit</a>
+                    <section className='w-[100%] max-w-[420px] min-h-[400px] flex flex-col justify-center px-[32px] py-[24px] bg-[#a88bbb] rounded-[24px] absolute left-[50%] translate-y-[40%] translate-x-[-50%]'>
+                        <h1 className='text-[32px] text-[#fff] mx-auto'>Registrováno!</h1>
+                        <p className='mx-auto mt-[40px]'>
+                            <a href="/login" className='text-[24px] text-[#fff] px-[20px] py-[6px] bg-[#2e65ad] hover:bg-[#193860] rounded-[8px]'>Přihlásit</a>
                         </p>
                     </section>
                 </div>
@@ -181,7 +181,7 @@ const Register = () => {
                             Již máte svůj účet?<br />
                             <span className="line">
                                 {
-                                    <a href="#">Přihlásit</a>
+                                    <a href="/login">Přihlásit</a>
                                 }
                             </span>
                         </p>

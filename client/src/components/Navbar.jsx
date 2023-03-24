@@ -25,9 +25,6 @@ const Navbar = () => {
                 <li className='hover:text-[#141414]'>
                     <a href='/account'>Účet</a>
                 </li>
-                <li className='hover:text-[#141414]'>
-                    <a href='/register'>Registrace</a>
-                </li>
             </ul>
 
             {/* Burgir */}

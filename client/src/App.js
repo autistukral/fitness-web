@@ -5,7 +5,10 @@ import Rezervace from "./components/Rezervace";
 import Galerie from "./components/Galerie";
 import Account from "./components/Account";
 import Register from "./components/Register";
-import { Routes, Route } from 'react-router-dom'
+import Login from "./components/Login";
+import RequireAuth from "./components/RequireAuth";
+import { Routes, Route } from 'react-router-dom';
+
 
 function App() {
   return (
@@ -15,11 +18,14 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/rezervace' element={<Rezervace />} />
         <Route path='/galerie' element={<Galerie />} />
-        <Route path='/account' element={<Account />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+        <Route element={<RequireAuth />}>
+          <Route path='/account' element={<Account />} />
+        </Route>
       </Routes>
       <Footer />
-    </div>
+    </div >
   );
 }
 
