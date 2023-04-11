@@ -5,6 +5,8 @@ const handleNewRezervace = async (req, res) => {
 
     try {
         const result = await Rezervace.create({
+            "jmeno": jmeno,
+            "prijmeni": prijmeni,
             "date": date,
             "activity": activity,
             "trainer": trainer,

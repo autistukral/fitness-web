@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const rezervaceSchema = new Schema({
+    jmeno: {
+        type: String,
+        required: true
+    },
+    prijmeni: {
+        type: String,
+        required: true
+    },
     date: {
         type: String,
         required: true
@@ -16,7 +24,7 @@ const rezervaceSchema = new Schema({
     },
     price: {
         type: String,
-        required: false
+        required: true
     },
     refreshToken: String
 });
